@@ -58,10 +58,14 @@ module.exports = function(grunt){
 
     function add(config){
       run('git add ' + config.file);
+      if (options.shrinkwrap) {
+        run('git add npm-shrinkwrap.json');
+      }
     }
 
     function commit(config){
       run('git commit '+ config.file +' -m "'+ commitMessage +'"', config.file + ' committed');
+      run('git commit npm-shrinkwrap.json -m "'+ commitMessage +'"', 'npm-shrinkwrap.json committed');
     }
 
     function tag(config){
