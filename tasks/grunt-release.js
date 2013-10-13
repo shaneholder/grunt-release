@@ -15,6 +15,7 @@ module.exports = function(grunt){
     //defaults
     var options = this.options({
       bump: true,
+      shrinkwrap: false,
       file: grunt.config('pkgFile') || 'package.json',
       add: true,
       commit: true,
@@ -37,6 +38,7 @@ module.exports = function(grunt){
     var task = this;
 
     if (options.bump) bump(config);
+    if (options.shrinkwrap) shrinkwrap(config);
     if (options.add) add(config);
     if (options.commit) commit(config);
     if (options.tag) tag(config);
@@ -108,6 +110,12 @@ module.exports = function(grunt){
       config.pkg.version = config.newVersion;
       grunt.file.write(config.file, JSON.stringify(config.pkg, null, '  ') + '\n');
       grunt.log.ok('Version bumped to ' + config.newVersion);
+    }
+
+    function shrinkwrap(config) {
+      var cmd = 'npm shrinkwrap';
+      var msg = 'shrinkwrapped'
+      run(cmd, msg);
     }
 
     function githubRelease(){
