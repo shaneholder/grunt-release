@@ -17,6 +17,7 @@ module.exports = function(grunt){
     //defaults
     var options = this.options({
       bump: true,
+      shrinkwrap: false,
       file: grunt.config('pkgFile') || 'package.json',
       add: true,
       commit: true,
@@ -52,11 +53,11 @@ module.exports = function(grunt){
       .then(ifEnabled('pushTags', pushTags))
       .then(ifEnabled('npm', publish))
       .then(ifEnabled('github', githubRelease))
+      .then(ifEnabled('shrinkwrap', shrinkwrap))
       .catch(function(msg){
         grunt.fail.warn(msg || 'release failed')
       })
       .finally(done);
-
 
     function setup(file, type){
       var pkg = grunt.file.readJSON(file);
@@ -139,6 +140,12 @@ module.exports = function(grunt){
         grunt.file.write(config.file, JSON.stringify(config.pkg, null, '  ') + '\n');
         grunt.log.ok('bumped version to ' + config.newVersion);
       });
+    }
+
+    function shrinkwrap() {
+      var cmd = 'npm shrinkwrap';
+      var msg = 'shrinkwrapped version ' + config.newVersion;
+      run(cmd, msg);
     }
 
     function githubRelease(){
