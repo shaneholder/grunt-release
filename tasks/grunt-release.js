@@ -47,13 +47,14 @@ module.exports = function(grunt){
     Q()
       .then(ifEnabled('bump', bump))
       .then(ifEnabled('add', add))
+      .then(ifEnabled('shrinkwrap', shrinkwrap))
       .then(ifEnabled('commit', commit))
+      .then(ifEnabled('commit', commitShrinkwrap))
       .then(ifEnabled('tag', tag))
       .then(ifEnabled('push', push))
       .then(ifEnabled('pushTags', pushTags))
       .then(ifEnabled('npm', publish))
       .then(ifEnabled('github', githubRelease))
-      .then(ifEnabled('shrinkwrap', shrinkwrap))
       .catch(function(msg){
         grunt.fail.warn(msg || 'release failed')
       })
@@ -107,6 +108,10 @@ module.exports = function(grunt){
 
     function commit(){
       return run('git commit '+ config.file +' -m "'+ commitMessage +'"', 'committed ' + config.file);
+    }
+
+    function commitShrinkwrap(){
+      return run('git commit npm-shrinkwrap.json -m "'+ commitMessage +'"', 'committed shrinkwrap' + config.file);
     }
 
     function tag(){
