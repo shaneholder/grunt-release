@@ -111,7 +111,7 @@ module.exports = function(grunt){
     }
 
     function commitShrinkwrap(){
-      return run('git commit npm-shrinkwrap.json -m "'+ commitMessage +'"', 'committed shrinkwrap' + config.file);
+      return run('git commit npm-shrinkwrap.json -m "'+ commitMessage +'"', 'committed npm-shrinkwrap.json ');
     }
 
     function tag(){
@@ -150,12 +150,6 @@ module.exports = function(grunt){
     function shrinkwrap() {
       var cmd = 'npm shrinkwrap';
       var msg = 'shrinkwrapped version ' + config.newVersion;
-      run(cmd, msg);
-    }
-
-    function shrinkwrap(config) {
-      var cmd = 'npm shrinkwrap';
-      var msg = 'shrinkwrapped'
       run(cmd, msg);
     }
 
