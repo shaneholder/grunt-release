@@ -13,13 +13,14 @@ module.exports = function(grunt) {
         file: 'package.json',
         add: true,
         commit: true,
+        shrinkwrap:true,
         tag: true,
         push: true,
         pushTags: true,
         npm: true,
         npmtag: false,
         github: {
-          repo: 'geddski/grunt-release',
+          repo: 'shaneholder/grunt-release',
           usernameVar: 'GITHUB_USERNAME',
           passwordVar: 'GITHUB_PASSWORD'
         }

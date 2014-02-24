@@ -108,7 +108,7 @@ module.exports = function(grunt){
     }
 
     function addShrinkwrap(){
-      return run('git add npm-shrinkwrap.json', ' staged ' + config.file);
+      return run('git add npm-shrinkwrap.json', ' staged npm-shrinkwrap.json');
     }
 
     function commit(){
@@ -155,7 +155,7 @@ module.exports = function(grunt){
     function shrinkwrap() {
       var cmd = 'npm shrinkwrap';
       var msg = 'shrinkwrapped version ' + config.newVersion;
-      run(cmd, msg);
+      return run(cmd, msg);
     }
 
     function githubRelease(){
