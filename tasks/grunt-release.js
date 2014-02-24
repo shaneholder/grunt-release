@@ -46,8 +46,9 @@ module.exports = function(grunt){
 
     Q()
       .then(ifEnabled('bump', bump))
-      .then(ifEnabled('add', add))
       .then(ifEnabled('shrinkwrap', shrinkwrap))
+      .then(ifEnabled('add', add))
+      .then(ifEnabled('add', addShrinkwrap))
       .then(ifEnabled('commit', commit))
       .then(ifEnabled('commit', commitShrinkwrap))
       .then(ifEnabled('tag', tag))
@@ -104,6 +105,10 @@ module.exports = function(grunt){
 
     function add(){
       return run('git add ' + config.file, ' staged ' + config.file);
+    }
+
+    function addShrinkwrap(){
+      return run('git add npm-shrinkwrap.json', ' staged ' + config.file);
     }
 
     function commit(){
