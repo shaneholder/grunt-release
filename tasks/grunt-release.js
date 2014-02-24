@@ -60,6 +60,15 @@ module.exports = function(grunt){
       })
       .finally(done);
 
+    function setup(file, type){
+      var pkg = grunt.file.readJSON(file);
+      var newVersion = pkg.version;
+      if (options.bump) {
+        newVersion = semver.inc(pkg.version, type || 'patch');
+      }
+      return {file: file, pkg: pkg, newVersion: newVersion};
+    }
+
     function getNpmTag(){
       var tag = grunt.option('npmtag') || options.npmtag;
       if(tag === true) { tag = config.newVersion }
