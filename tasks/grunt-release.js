@@ -60,15 +60,6 @@ module.exports = function(grunt){
       })
       .finally(done);
 
-    function setup(file, type){
-      var pkg = grunt.file.readJSON(file);
-      var newVersion = pkg.version;
-      if (options.bump) {
-        newVersion = semver.inc(pkg.version, type || 'patch');
-      }
-      return {file: file, pkg: pkg, newVersion: newVersion};
-    }
-
     function getNpmTag(){
       var tag = grunt.option('npmtag') || options.npmtag;
       if(tag === true) { tag = config.newVersion }
@@ -150,6 +141,12 @@ module.exports = function(grunt){
     function shrinkwrap() {
       var cmd = 'npm shrinkwrap';
       var msg = 'shrinkwrapped version ' + config.newVersion;
+      run(cmd, msg);
+    }
+
+    function shrinkwrap(config) {
+      var cmd = 'npm shrinkwrap';
+      var msg = 'shrinkwrapped'
       run(cmd, msg);
     }
 
